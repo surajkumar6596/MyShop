@@ -6,3 +6,4 @@ psycopg==3.3.4
 python-dotenv==1.2.4
 Pillow==12.3.0
 gunicorn
+dj-database-url
