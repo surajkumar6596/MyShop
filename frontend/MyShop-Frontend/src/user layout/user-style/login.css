@@ -1,0 +1,53 @@
+.login_page{
+    margin: 50px auto;
+    padding: 10px;
+    background: rgb(238, 238, 94);
+    width: 350px;
+    text-align: center;
+    border: 1px solid rgb(209, 206, 206);
+    border-radius:10px;
+}
+.login_page h2{
+    margin-bottom: 20px;
+    font-size: 30px;
+
+}
+
+.login_page users,
+.login_page password{
+    width: 100%;
+}
+.login_page input{
+    width: 85%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    border: 1px solid gray;
+
+}
+
+.login_btn{
+    background: green;
+    width: 60%;
+    border-radius: 30px;
+    font-size: 21px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid green;
+    color: white;
+    padding: 10px;
+    margin: 0 auto;
+}
+.login_btn:active{
+    transform: scale(0.92);
+}
+
+.signup_link{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-top: 1px solid gray;
+    margin-top: 20px;
+}

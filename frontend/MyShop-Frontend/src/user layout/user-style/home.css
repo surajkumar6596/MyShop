@@ -1,0 +1,140 @@
+.home_container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Hero Banner */
+.hero_section {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #ffffff;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero_content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero_content h1 {
+  font-size: 42px;
+  margin-bottom: 16px;
+  font-weight: 800;
+}
+
+.hero_content h1 span {
+  color: #3b82f6;
+}
+
+.hero_content p {
+  font-size: 18px;
+  color: #94a3b8;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.hero_btns {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn_primary {
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.btn_primary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn_secondary {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #475569;
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.btn_secondary:hover {
+  background-color: #334155;
+}
+
+/* Features Grid */
+.features_section {
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.feature_card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.feature_icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.feature_card h3 {
+  font-size: 18px;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.feature_card p {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* CTA Banner */
+.cta_banner {
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 60px 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.cta_banner h2 {
+  font-size: 28px;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.cta_banner p {
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+.btn_cta {
+  display: inline-block;
+  background-color: #16a34a;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn_cta:hover {
+  background-color: #15803d;
+}

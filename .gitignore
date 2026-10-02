@@ -1,0 +1,29 @@
+
+# Python virtual environment
+venv/
+**/venv/
+
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# Local databases
+db.sqlite3
+*.sqlite3
+
+# Build files
+dist/
+build/
+
+# Notes folder
+/notes
