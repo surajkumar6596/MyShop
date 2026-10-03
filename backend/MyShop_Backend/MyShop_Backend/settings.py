@@ -87,10 +87,12 @@ SIMPLE_JWT = {
 
 
 AUTH_USER_MODEL = "accounts.User"
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://my-shop-4wkqme3il-personal-1f65.vercel.app",
+    "https://my-shop-lemon-six.vercel.app",
 ]
-
 
 ROOT_URLCONF = "MyShop_Backend.urls"
 
