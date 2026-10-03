@@ -11,7 +11,7 @@ const Products = () => {
   // 1. Data Fetching Function
   const fetchProducts = () => {
     axios
-      .get("http://127.0.0.1:8000/api/products/")
+      .get(`${import.meta.env.VITE_API_URL}/api/products/`)
       .then((res) => {
         setProducts(res.data?.results || res.data || []);
         setLoading(false);
@@ -33,7 +33,6 @@ const Products = () => {
     window.addEventListener("focus", handleFocus);
     return () => window.removeEventListener("focus", handleFocus);
   }, []);
-  
 
   const handleAddToCart = (productId) => {
     const token = localStorage.getItem("access_token");
@@ -45,7 +44,7 @@ const Products = () => {
 
     axios
       .post(
-        "http://127.0.0.1:8000/api/cart/",
+        `${import.meta.env.VITE_API_URL}/api/cart/`,
         {
           product_id: productId,
           quantity: 1,
@@ -55,7 +54,7 @@ const Products = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       )
       .then(() => {
         alert("Added to cart successfully !");

@@ -27,7 +27,7 @@ const Profile = () => {
 
     // Correct API Endpoint match: /api/orders/
     axios
-      .get("http://127.0.0.1:8000/api/orders/", {
+      .get(`${import.meta.env.VITE_API_URL}/api/orders/`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

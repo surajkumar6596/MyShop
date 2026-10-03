@@ -24,9 +24,14 @@ const Buy = () => {
   const [error, setErrors] = useState("");
 
   const prepareOrderItems = () => {
-    if (cartItemsData && Array.isArray(cartItemsData) && cartItemsData.length > 0) {
+    if (
+      cartItemsData &&
+      Array.isArray(cartItemsData) &&
+      cartItemsData.length > 0
+    ) {
       return cartItemsData.map((item) => {
-        const pId = item.product?.id || item.product_id || item.product || item.id;
+        const pId =
+          item.product?.id || item.product_id || item.product || item.id;
         return {
           product: Number(pId),
           price: Number(item.price || item.product?.price || 0),
@@ -40,7 +45,9 @@ const Buy = () => {
         productData.id ||
         productData._id ||
         productData.product_id ||
-        (typeof productData.product === "object" ? productData.product?.id : productData.product);
+        (typeof productData.product === "object"
+          ? productData.product?.id
+          : productData.product);
 
       return [
         {
@@ -57,7 +64,7 @@ const Buy = () => {
   const itemsToSubmit = prepareOrderItems();
   const totalAmount = itemsToSubmit.reduce(
     (acc, item) => acc + item.price * item.quantity,
-    0
+    0,
   );
 
   const handleChange = (e) => {
@@ -85,7 +92,10 @@ const Buy = () => {
       return;
     }
 
-    if (itemsToSubmit.length === 0 || itemsToSubmit.some((item) => !item.product || isNaN(item.product))) {
+    if (
+      itemsToSubmit.length === 0 ||
+      itemsToSubmit.some((item) => !item.product || isNaN(item.product))
+    ) {
       setErrors("Invalid product selected. Please try again.");
       setLoading(false);
       return;
@@ -103,12 +113,16 @@ const Buy = () => {
     };
 
     axios
-      .post("http://127.0.0.1:8000/api/orders/checkout/", orderPayload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+      .post(
+        `${import.meta.env.VITE_API_URL}/api/orders/checkout/`,
+        orderPayload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         },
-      })
+      )
       .then(() => {
         setLoading(false);
         alert("🎉 Order Placed Successfully!");
@@ -135,7 +149,9 @@ const Buy = () => {
         <h3>Order Summary</h3>
         <p>
           <strong>Item:</strong>{" "}
-          {productData?.name || productData?.title || (cartItemsData ? `${cartItemsData.length} Items` : "Product")}
+          {productData?.name ||
+            productData?.title ||
+            (cartItemsData ? `${cartItemsData.length} Items` : "Product")}
         </p>
         <p>
           <strong>Total Price:</strong> ₹{totalAmount.toFixed(2)}

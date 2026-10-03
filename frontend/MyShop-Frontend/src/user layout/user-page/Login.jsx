@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../user-style/login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,7 +12,6 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
-
 
   useEffect(() => {
     // Check if previous login session has expired (1 day check)
@@ -32,20 +31,17 @@ const Login = () => {
     }
   }, []);
 
-
   const handleChange = (e) => {
-    
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/login/",
+        `${import.meta.env.VITE_API_URL}/api/login/`,
         formData,
       );
 
@@ -53,36 +49,58 @@ const Login = () => {
       // 1 access and refresh token
       localStorage.setItem("access_token", response.data.access);
       localStorage.setItem("refresh_token", response.data.refresh);
-      localStorage.setItem("user", JSON.stringify(response.data.user))
-      localStorage.setItem("login_time", new Date().getTime().toString())
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("login_time", new Date().getTime().toString());
       window.dispatchEvent(new Event("storage"));
-      alert("Login Successful!")
-      navigate("/")
+      alert("Login Successful!");
+      navigate("/");
     } catch (error) {
-      console.error("Login Error : ", error.response?.data)
+      console.error("Login Error : ", error.response?.data);
       setErrorMessage(
-        error.response?.data?.detail || "Invalide Username or Password"
-      )
+        error.response?.data?.detail || "Invalide Username or Password",
+      );
     }
   };
 
   return (
     <div className="login_page">
       <h2>Login</h2>
-      {errorMessage && <p className="error_text" style={{ color: "red" }}>{errorMessage}</p>}
+      {errorMessage && (
+        <p className="error_text" style={{ color: "red" }}>
+          {errorMessage}
+        </p>
+      )}
       <form onSubmit={handleSubmit}>
-      <div className="users">
-        <input type="text" name="username" id="" placeholder="Username" value={formData.username} onChange={handleChange} required/>
-      </div>
-      <div className="password">
-        <input type="password" name="password" id="" placeholder="Password" value={formData.password} onChange={handleChange} required/>
-      </div>
-      <button className="login_btn" type="submit">Login</button>
+        <div className="users">
+          <input
+            type="text"
+            name="username"
+            id=""
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="password">
+          <input
+            type="password"
+            name="password"
+            id=""
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button className="login_btn" type="submit">
+          Login
+        </button>
 
-      <div className="signup_link">
-        <span>Already have account ?</span>
-        <Link to={"/signup" } >Signup</Link>
-      </div>
+        <div className="signup_link">
+          <span>Already have account ?</span>
+          <Link to={"/signup"}>Signup</Link>
+        </div>
       </form>
     </div>
   );

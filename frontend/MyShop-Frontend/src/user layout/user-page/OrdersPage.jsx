@@ -16,9 +16,12 @@ const OrdersPage = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/orders/", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/orders/`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       setOrders(response.data);
     } catch (err) {
       console.error("Error fetching orders:", err);
@@ -35,7 +38,7 @@ const OrdersPage = () => {
     setActionLoading(orderId);
     try {
       await axios.post(
-        `http://127.0.0.1:8000/api/orders/${orderId}/cancel/`,
+        `${import.meta.env.VITE_API_URL}/api/orders/${orderId}/cancel/`,
         {},
         { headers: { Authorization: `Bearer ${token}` } },
       );

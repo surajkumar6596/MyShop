@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../user-style/cart.css";
 
-const API_URL = "http://127.0.0.1:8000/api/cart/";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/cart/`;
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -27,7 +27,7 @@ const Cart = () => {
           "Content-Type": "application/json",
         },
       });
-      
+
       setCartItems(res.data?.results || res.data || []);
       setErrorMsg("");
     } catch (err) {
@@ -58,7 +58,7 @@ const Cart = () => {
         { quantity: newQty },
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       fetchCart();
     } catch (err) {
@@ -73,7 +73,7 @@ const Cart = () => {
       await axios.delete(`${API_URL}${id}/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      
+
       fetchCart();
     } catch (err) {
       console.error("Error deleting item:", err.response?.data || err);
@@ -98,12 +98,17 @@ const Cart = () => {
   };
 
   const totalPrice = (cartItems || []).reduce(
-    (acc, item) => acc + Number(item.product?.price || 0) * (item.quantity || 1),
-    0
+    (acc, item) =>
+      acc + Number(item.product?.price || 0) * (item.quantity || 1),
+    0,
   );
 
   if (loading)
-    return <h3 style={{ textAlign: "center", marginTop: "40px" }}>Loading Cart...</h3>;
+    return (
+      <h3 style={{ textAlign: "center", marginTop: "40px" }}>
+        Loading Cart...
+      </h3>
+    );
 
   if (errorMsg)
     return (
@@ -132,16 +137,23 @@ const Cart = () => {
               </div>
 
               <div className="qty_box">
-                <button onClick={() => handleQuantity(item.id, item.quantity, -1)}>
+                <button
+                  onClick={() => handleQuantity(item.id, item.quantity, -1)}
+                >
                   -
                 </button>
                 <span>{item.quantity}</span>
-                <button onClick={() => handleQuantity(item.id, item.quantity, 1)}>
+                <button
+                  onClick={() => handleQuantity(item.id, item.quantity, 1)}
+                >
                   +
                 </button>
               </div>
 
-              <button className="delete_btn" onClick={() => handleRemove(item.id)}>
+              <button
+                className="delete_btn"
+                onClick={() => handleRemove(item.id)}
+              >
                 Remove
               </button>
             </div>

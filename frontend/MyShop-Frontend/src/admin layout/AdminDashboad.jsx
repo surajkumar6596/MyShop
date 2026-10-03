@@ -51,21 +51,21 @@ const AdvancedAdminDashboard = () => {
   const fetchDashboardOverview = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://127.0.0.1:8000/api/admin/dashboard/', { headers });
+      const res = await axios.get('${import.meta.env.VITE_API_URL}/api/admin/dashboard/', { headers });
       setDashboardData(res.data);
     } catch (err) { console.error("Dashboard error:", err); } 
     finally { setLoading(false); }
   };
 
-  const fetchUsers = async () => { try { const res = await axios.get('http://127.0.0.1:8000/api/admin/users/', { headers }); setUsers(res.data); } catch (err) { console.error(err); } };
-  const fetchOrders = async () => { try { const res = await axios.get('http://127.0.0.1:8000/api/admin/orders/', { headers }); setOrders(res.data); } catch (err) { console.error(err); } };
-  const fetchCarts = async () => { try { const res = await axios.get('http://127.0.0.1:8000/api/admin/carts/', { headers }); setCarts(res.data); } catch (err) { console.error(err); } };
-  const fetchProducts = async () => { try { const res = await axios.get('http://127.0.0.1:8000/api/products/', { headers }); setProducts(res.data); } catch (err) { console.error(err); } };
+  const fetchUsers = async () => { try { const res = await axios.get('${import.meta.env.VITE_API_URL}/api/admin/users/', { headers }); setUsers(res.data); } catch (err) { console.error(err); } };
+  const fetchOrders = async () => { try { const res = await axios.get('${import.meta.env.VITE_API_URL}/api/admin/orders/', { headers }); setOrders(res.data); } catch (err) { console.error(err); } };
+  const fetchCarts = async () => { try { const res = await axios.get('${import.meta.env.VITE_API_URL}/api/admin/carts/', { headers }); setCarts(res.data); } catch (err) { console.error(err); } };
+  const fetchProducts = async () => { try { const res = await axios.get('${import.meta.env.VITE_API_URL}/api/products/', { headers }); setProducts(res.data); } catch (err) { console.error(err); } };
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:8000/api/admin/product/add/', newProduct, { headers });
+      await axios.post('${import.meta.env.VITE_API_URL}/api/admin/product/add/', newProduct, { headers });
       alert('Product Added Successfully!');
       setNewProduct({ name: '', category: 'Clothes', price: '', descriptions: '', stock: 10, image_url: '' });
       fetchProducts();
@@ -75,7 +75,7 @@ const AdvancedAdminDashboard = () => {
   const handleDeleteProduct = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await axios.delete(`http://127.0.0.1:8000/api/admin/product/delete/${id}/`, { headers });
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/admin/product/delete/${id}/`, { headers });
         alert('Product Deleted');
         fetchProducts();
       } catch (err) { alert('Failed to delete'); }

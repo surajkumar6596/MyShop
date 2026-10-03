@@ -18,7 +18,7 @@ const Navbar = () => {
     const fetchSearchHistory = () => {
       if (token) {
         axios
-          .get("http://127.0.0.1:8000/api/search-recommendations/", {
+          .get(`${import.meta.env.VITE_API_URL}/api/search-recommendations/`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {

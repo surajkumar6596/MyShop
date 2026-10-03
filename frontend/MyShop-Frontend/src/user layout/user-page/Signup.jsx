@@ -37,7 +37,7 @@ const Signup = () => {
     setError("");
 
     axios
-      .post("http://127.0.0.1:8000/api/signup/", formData)
+      .post(`${import.meta.env.VITE_API_URL}/api/signup/`, formData)
       .then(() => {
         alert("Account created successfully!");
         setLoading(false);
@@ -50,7 +50,9 @@ const Signup = () => {
           const apiErrors = err.response.data;
           const firstKey = Object.keys(apiErrors)[0];
           const firstMsg = apiErrors[firstKey];
-          setError(`${firstKey}: ${Array.isArray(firstMsg) ? firstMsg[0] : firstMsg}`);
+          setError(
+            `${firstKey}: ${Array.isArray(firstMsg) ? firstMsg[0] : firstMsg}`,
+          );
         } else {
           setError("Something went wrong. Please try again.");
         }
