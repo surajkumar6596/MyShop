@@ -43,7 +43,24 @@ const AdvancedAdminDashboard = () => {
   });
 
   const token = localStorage.getItem("access_token");
-  const headers = { Authorization: `Bearer ${token}` };
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  const handleApiError = (label, error) => {
+    console.error(
+      `${label}:`,
+      error.response?.status,
+      error.response?.data || error.message,
+    );
+
+    if (error.response?.status === 401) {
+      alert("Session expired. Please login again.");
+    } else if (error.response?.status === 403) {
+      alert("Permission denied. Check your Django admin permissions.");
+    } else {
+      alert(`${label} failed. Please try again.`);
+    }
+  };
 
   useEffect(() => {
     if (activeTab === "overview") fetchDashboardOverview();
@@ -62,7 +79,7 @@ const AdvancedAdminDashboard = () => {
       );
       setDashboardData(res.data);
     } catch (err) {
-      console.error("Dashboard error:", err);
+      handleApiError("Dashboard", err);
     } finally {
       setLoading(false);
     }
@@ -77,6 +94,7 @@ const AdvancedAdminDashboard = () => {
       setUsers(res.data);
     } catch (err) {
       console.error(err);
+      handleApiError("Dashboard", err);
     }
   };
   const fetchOrders = async () => {
@@ -88,6 +106,7 @@ const AdvancedAdminDashboard = () => {
       setOrders(res.data);
     } catch (err) {
       console.error(err);
+      handleApiError("Dashboard", err);
     }
   };
   const fetchCarts = async () => {
@@ -99,8 +118,10 @@ const AdvancedAdminDashboard = () => {
       setCarts(res.data);
     } catch (err) {
       console.error(err);
+      handleApiError("Dashboard", err);
     }
   };
+
   const fetchProducts = async () => {
     try {
       const res = await axios.get(
@@ -110,6 +131,7 @@ const AdvancedAdminDashboard = () => {
       setProducts(res.data);
     } catch (err) {
       console.error(err);
+      handleApiError("Dashboard", err);
     }
   };
 
@@ -117,7 +139,7 @@ const AdvancedAdminDashboard = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "${import.meta.env.VITE_API_URL}/api/admin/product/add/",
+        `${import.meta.env.VITE_API_URL}/api/admin/product/add/`,
         newProduct,
         { headers },
       );
@@ -133,20 +155,21 @@ const AdvancedAdminDashboard = () => {
       fetchProducts();
     } catch (err) {
       alert("Failed to add product");
+      handleApiError("Dashboard", err);
     }
   };
 
   const handleDeleteProduct = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(
-          `${import.meta.env.VITE_API_URL}/api/admin/product/delete/${id}/`,
-          { headers },
-        );
+        await axios.delete(`${API_URL}/api/admin/product/delete/${id}/`, {
+          headers,
+        });
         alert("Product Deleted");
         fetchProducts();
       } catch (err) {
         alert("Failed to delete");
+        handleApiError("Dashboard", err);
       }
     }
   };
@@ -294,7 +317,7 @@ const AdvancedAdminDashboard = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {dashboardData.recent_orders.map((ord) => (
+                          {(dashboardData.recent_orders || []).map((ord) => (
                             <tr key={ord.id}>
                               <td>#{ord.id}</td>
                               <td>{ord.username}</td>
