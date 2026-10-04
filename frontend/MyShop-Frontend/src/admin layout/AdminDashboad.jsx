@@ -162,9 +162,10 @@ const AdvancedAdminDashboard = () => {
   const handleDeleteProduct = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`${API_URL}/api/admin/product/delete/${id}/`, {
-          headers,
-        });
+        await axios.delete(
+          `${API_URL}/api/admin/product/delete/${id}/`, 
+          {headers,}
+      );
         alert("Product Deleted");
         fetchProducts();
       } catch (err) {

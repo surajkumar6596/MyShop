@@ -12,5 +12,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "price",
             "descriptions",
             "image_file",
+            "image_url",
             "image"
         ]
