@@ -87,16 +87,7 @@ const Navbar = () => {
     return () => window.removeEventListener("storage", loadUser);
   }, [location.pathname]); // Route change hone par bhi expiry verify hogi
 
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("login_time");
-    setUser(null);
-    window.dispatchEvent(new Event("storage"));
-    navigate("/login");
-  };
-
+ 
   const getInitial = () => {
     if (!user) return "";
     const name = user.first_name || user.username || user.phone || "";

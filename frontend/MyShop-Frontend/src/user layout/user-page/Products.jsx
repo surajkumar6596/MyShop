@@ -10,10 +10,19 @@ const Products = () => {
 
   // 1. Data Fetching Function
   const fetchProducts = () => {
+    console.log("API URL:", import.meta.env.VITE_API_URL);
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/products/`)
       .then((res) => {
-        setProducts(res.data?.results || res.data || []);
+        // setProducts(res.data?.results || res.data || []);
+         console.log("PRODUCT API RESPONSE:", res.data);
+        setProducts(
+          Array.isArray(res.data)
+            ? res.data
+            : Array.isArray(res.data.results)
+              ? res.data.results
+              : [],
+        );
         setLoading(false);
       })
       .catch((err) => {
